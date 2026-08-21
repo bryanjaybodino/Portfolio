@@ -1,0 +1,665 @@
+﻿:root {
+    --color-calendar-graph-day-bg: #dddbdb;
+    --color-calendar-graph-day-L1-bg: #39dd34;
+    --color-calendar-graph-day-L2-bg: #45a045;
+    --color-calendar-graph-day-L3-bg: #047526;
+    --color-calendar-graph-day-L4-bg: #0a4208;
+}
+
+/* Dark mode theme overrides for GitHub calendar elements */
+[data-theme="dark"] {
+    --color-calendar-graph-day-bg: #2a2a2a;
+}
+
+.ContributionCalendar-day[data-level='0'] {
+    background-color: var(--color-calendar-graph-day-bg);
+}
+
+.ContributionCalendar-day[data-level='1'] {
+    background-color: var(--color-calendar-graph-day-L1-bg);
+}
+
+.ContributionCalendar-day[data-level='2'] {
+    background-color: var(--color-calendar-graph-day-L2-bg);
+}
+
+.ContributionCalendar-day[data-level='3'] {
+    background-color: var(--color-calendar-graph-day-L3-bg);
+}
+
+.ContributionCalendar-day[data-level='4'] {
+    background-color: var(--color-calendar-graph-day-L4-bg);
+}
+
+table.ContributionCalendar-grid {
+    margin-bottom: 0pt;
+}
+
+    table.ContributionCalendar-grid td {
+        padding: 4pt;
+    }
+
+        table.ContributionCalendar-grid td span.sr-only {
+            display: none;
+        }
+
+td.ContributionCalendar-label span[aria-hidden='true'] {
+    font-size: 8pt;
+    left: -1pt;
+}
+
+tool-tip {
+    display: none;
+}
+
+.calendar .width-full > .float-left {
+    display: none;
+}
+
+.calendar {
+    font-family: Helvetica, arial;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    min-height: 243px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.calendar-graph text.wday,
+.calendar-graph text.month {
+    font-size: 10px;
+    fill: var(--text-muted);
+}
+
+div.px-md-5 {
+    height: 2rem;
+}
+
+div.float-right {
+    text-align: right;
+    padding: 0 14px 10px 0;
+    display: inline-block;
+    float: right;
+}
+
+    div.float-right div {
+        display: inline-block;
+        list-style: none;
+        margin: 0 5px;
+        position: relative;
+        bottom: -1px;
+        padding: 0;
+    }
+
+    div.float-right span.sr-only {
+        display: none;
+    }
+
+.contrib-legend .legend li {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+}
+
+.text-small {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.calendar-graph {
+    padding: 5px 0 0;
+    text-align: center;
+}
+
+.contrib-column {
+    padding: 15px 0;
+    text-align: center;
+    border-left: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    font-size: 11px;
+}
+
+.contrib-column-first {
+    border-left: 0;
+}
+
+.table-column {
+    box-sizing: border-box;
+    display: table-cell;
+    width: 1%;
+    padding-right: 10px;
+    padding-left: 10px;
+    vertical-align: top;
+}
+
+.contrib-number {
+    font-weight: 300;
+    line-height: 1.3em;
+    font-size: 24px;
+    display: block;
+    color: var(--text-light);
+}
+
+.calendar img.spinner {
+    width: 70px;
+    margin-top: 50px;
+    min-height: 70px;
+}
+
+.monospace {
+    text-align: center;
+    color: var(--text-light);
+    font-family: monospace;
+}
+
+    .monospace a {
+        color: var(--primary);
+        text-decoration: none;
+    }
+
+.contrib-footer {
+    font-size: 11px;
+    padding: 0 10px 12px;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+    height: 26px;
+}
+
+.left.text-muted {
+    float: left;
+    margin-left: 9px;
+    color: var(--text-muted);
+}
+
+    .left.text-muted a {
+        color: var(--primary);
+        text-decoration: none;
+    }
+
+        .left.text-muted a:hover,
+        .monospace a:hover {
+            text-decoration: underline;
+        }
+
+h2.f4.text-normal.mb-3 {
+    display: none;
+}
+
+.float-left.text-gray {
+    float: left;
+}
+
+#user-activity-overview {
+    display: none;
+}
+
+.day-tooltip {
+    white-space: nowrap;
+    position: absolute;
+    z-index: 99999;
+    padding: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    display: none;
+    pointer-events: none;
+}
+
+    .day-tooltip strong {
+        color: var(--text-light);
+    }
+
+    .day-tooltip.is-visible {
+        display: block;
+    }
+
+    .day-tooltip:after {
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        box-sizing: border-box;
+        margin: 0 0 0 -5px;
+        content: " ";
+        border: 5px solid transparent;
+        border-top-color: var(--bg-dark);
+    }
+
+text.ContributionCalendar-label {
+    fill: var(--text-muted);
+    font-size: 11px;
+}
+
+@media screen and (max-width: 768px) {
+    .table-column {
+        display: block;
+        width: 100%;
+    }
+}
+
+
+/* ========================================
+   GITHUB CONTRIBUTIONS
+   ======================================== */
+
+.github-section {
+    padding: 80px 0;
+    background: var(--bg-light-secondary);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.github-header {
+    max-width: 72%;
+    margin: 0 auto 30px;
+    padding: 0 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+    .section-label::before {
+        content: "";
+        width: 24px;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--primary);
+    }
+
+.github-header h2 {
+    margin: 0 0 8px;
+    color: var(--text-light);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.github-header p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.98rem;
+}
+
+
+/* ========================================
+   GITHUB PROFILE BUTTON
+   ======================================== */
+
+.github-profile-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 17px;
+    color: #ffffff;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.3s ease;
+}
+
+    .github-profile-btn:hover {
+        background: var(--primary);
+        color: #ffffff;
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: var(--card-shadow-hover);
+    }
+
+    .github-profile-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+    }
+
+    .github-profile-btn span {
+        opacity: 0.7;
+    }
+
+
+/* ========================================
+   GITHUB CARD
+   ======================================== */
+
+.github-card {
+    position: relative;
+    max-width: 70%;
+    margin: 0 auto;
+    padding: 26px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .github-card::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient( circle, rgba(37, 99, 235, 0.12), transparent 70% );
+        pointer-events: none;
+    }
+
+
+/* ========================================
+   CARD HEADER
+   ======================================== */
+
+.github-card-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.github-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+    animation: githubPulse 2s infinite;
+}
+
+@keyframes githubPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+    }
+
+    50% {
+        box-shadow: 0 0 0 7px rgba(34, 197, 94, 0.04);
+    }
+}
+
+
+/* ========================================
+   CONTRIBUTION LEGEND
+   ======================================== */
+
+.github-legend {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+}
+
+    .github-legend i {
+        display: block;
+        width: 11px;
+        height: 11px;
+        border-radius: 3px;
+        border: 1px solid var(--border-color);
+    }
+
+.level-0 {
+    background: var(--color-calendar-graph-day-bg);
+}
+
+.level-1 {
+    background: var(--color-calendar-graph-day-L1-bg);
+}
+
+.level-2 {
+    background: var(--color-calendar-graph-day-L2-bg);
+}
+
+.level-3 {
+    background: var(--color-calendar-graph-day-L3-bg);
+}
+
+.level-4 {
+    background: var(--color-calendar-graph-day-L4-bg);
+}
+
+
+/* ========================================
+   GITHUB CALENDAR
+   ======================================== */
+
+#github-contributions {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 150px;
+    color: var(--text-light);
+}
+
+    #github-contributions .calendar {
+        width: 100%;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        color: var(--text-light) !important;
+    }
+
+    #github-contributions text {
+        fill: var(--text-muted) !important;
+    }
+
+    #github-contributions .contrib-number {
+        color: var(--text-light) !important;
+        font-weight: 700;
+    }
+
+    #github-contributions .text-muted {
+        color: var(--text-muted) !important;
+    }
+
+    #github-contributions a {
+        color: var(--primary) !important;
+    }
+
+    #github-contributions rect {
+        rx: 3;
+        ry: 3;
+        transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+        #github-contributions rect:hover {
+            transform: scale(1.25);
+        }
+
+    #github-contributions .hide-sm.hide-md.hide-lg.tmp-p-3.color-bg-accent-emphasis.color-fg-on-emphasis.show-on-focus {
+        display: none !important;
+    }
+
+    #github-contributions .width-full.f6.px-0.tmp-px-md-5.py-1 {
+        display: none !important;
+    }
+
+
+/* ========================================
+   GITHUB CALENDAR SCROLLBAR
+   ======================================== */
+
+#github-contributions {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+}
+
+    #github-contributions::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    #github-contributions::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 10px;
+    }
+
+    #github-contributions::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 10px;
+    }
+
+        #github-contributions::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+
+/* ========================================
+   GITHUB STATS
+   ======================================== */
+
+.github-stats {
+    max-width: 1050px;
+    margin: 0 auto 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.github-stat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
+}
+
+    .github-stat::before {
+        content: "";
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient( circle, rgba(37, 99, 235, 0.12), transparent 70% );
+        pointer-events: none;
+    }
+
+    .github-stat:hover {
+        transform: translateY(-4px);
+        border-color: rgba(37, 99, 235, 0.35);
+        box-shadow: var(--card-shadow-hover);
+    }
+
+    .github-stat strong {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 4px;
+        color: var(--text-light);
+        font-size: 1.8rem;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -0.04em;
+    }
+
+    .github-stat > span:last-child {
+        position: relative;
+        z-index: 1;
+        color: var(--text-muted);
+        font-size: 0.82rem;
+        font-weight: 500;
+    }
+
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 900px) {
+
+    .github-stats {
+        grid-template-columns: repeat(2, 1fr);
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    .github-card {
+        max-width: 95%;
+    }
+
+    .github-header {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .github-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .github-stat {
+        padding: 14px 12px;
+    }
+
+        .github-stat strong {
+            font-size: 1.4rem;
+        }
+
+        .github-stat > span:last-child {
+            font-size: 0.75rem;
+        }
+}
+
+
+/* Responsive fixes for GitHub Header and Profile Button */
+@media (max-width: 768px) {
+    .github-header {
+        max-width: 100%[cite: 3, 4];
+        flex-direction: column; /* Stack text and button vertically */
+        align-items: flex-start; /* Align elements to the left */
+        gap: 16px; /* Reduce vertical spacing */
+        padding: 0 16px;
+    }
+
+        .github-header h2 {
+            font-size: 1.8rem; /* Scale down title size */
+        }
+
+        .github-header p {
+            font-size: 0.9rem;
+        }
+
+    .github-profile-btn {
+        width: 100%; /* Make button full width on mobile for better tap target */
+        justify-content: center; /* Center icon and text inside button */
+        padding: 12px 16px;
+        box-sizing: border-box; /* Prevent padding overflow */
+    }
+}

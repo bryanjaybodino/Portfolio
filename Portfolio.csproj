@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B54B7E10-8FE1-4177-AA54-02C9FA68AEA6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Portfolio</RootNamespace>
+    <AssemblyName>Portfolio</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="assets\certificates\Certificate-AZ-900.png" />
+    <Content Include="assets\certificates\Certificate-Calculator.jpg" />
+    <Content Include="assets\certificates\Certificate-CashMonitoring.jpg" />
+    <Content Include="assets\certificates\Certificate-CAT.jpg" />
+    <Content Include="assets\certificates\Certificate-SumoBot.jpg" />
+    <Content Include="assets\certificates\NC2-Animation.jpg" />
+    <Content Include="assets\certificates\NC2-CSS.jpg" />
+    <Content Include="assets\certificates\NC2-Electronics.jpg" />
+    <Content Include="assets\certificates\Technical Maven.png" />
+    <Content Include="assets\certificates\The Catalyst.png" />
+    <Content Include="assets\featured\1.jpg" />
+    <Content Include="assets\featured\2.jpg" />
+    <Content Include="assets\featured\3.jpg" />
+    <Content Include="assets\nugets\BNet_ASP_MVC_Pagination.png" />
+    <Content Include="assets\nugets\BNet_FTPServer.png" />
+    <Content Include="assets\nugets\BNet_IMAP_Mailer.png" />
+    <Content Include="assets\nugets\BNet_WebSocket_Server.png" />
+    <Content Include="assets\nugets\BNet_ZKTecoADMS.png" />
+    <Content Include="assets\photos\1.png" />
+    <Content Include="assets\schools\IETI.png" />
+    <Content Include="assets\schools\SEED.png" />
+    <Content Include="assets\stacks\angular.png" />
+    <Content Include="assets\stacks\asp.png" />
+    <Content Include="assets\stacks\C-plus.png" />
+    <Content Include="assets\stacks\C-sharp.png" />
+    <Content Include="assets\stacks\css.png" />
+    <Content Include="assets\stacks\html.png" />
+    <Content Include="assets\stacks\javascript.png" />
+    <Content Include="assets\stacks\php.png" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\github.css" />
+    <Content Include="css\style.css" />
+    <Content Include="index.html" />
+    <Content Include="js\github.js" />
+    <Content Include="js\script.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="webfonts\fa-brands-400.woff2" />
+    <None Include="webfonts\fa-regular-400.woff2" />
+    <None Include="webfonts\fa-solid-900.woff2" />
+    <None Include="webfonts\fa-v4compatibility.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\bin\Debug\" />
+    <Folder Include="assets\bin\Release\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
