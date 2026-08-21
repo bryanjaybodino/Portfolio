@@ -252,7 +252,7 @@ var _typeof2 = "function" == typeof Symbol && "symbol" == _typeof(Symbol.iterato
 
 
 const githubUsername = "bryanjaybodino";
-const GITHUB_TOKEN = ""; // Replace with your token from https://github.com/settings/tokens
+const GITHUB_TOKEN = "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"; // Replace with your token from https://github.com/settings/tokens
 const CACHE_TTL_MINUTES = 60; // Cache API responses for 1 hour
 
 // Default headers for all API requests
