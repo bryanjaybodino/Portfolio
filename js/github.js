@@ -252,12 +252,10 @@ var _typeof2 = "function" == typeof Symbol && "symbol" == _typeof(Symbol.iterato
 
 
 const githubUsername = "bryanjaybodino";
-const GITHUB_TOKEN = "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"; // Replace with your token from https://github.com/settings/tokens
 const CACHE_TTL_MINUTES = 60; // Cache API responses for 1 hour
 
 // Default headers for all API requests
 const defaultHeaders = {
-    "Authorization": `token ${GITHUB_TOKEN}`,
     "Accept": "application/vnd.github.v3+json"
 };
 
@@ -367,81 +365,64 @@ function showCalendarError() {
 
 /*
  * ==========================================
- * COUNT TOTAL COMMITS (NEW)
+ * COUNT TOTAL COMMITS (REST API - Unauthenticated)
  * ==========================================
  */
-async function getTotalCommitCount(username) {
-    try {
-        const cacheKey = `gh_total_commits_${username}`;
+async function getTotalCommitCount(username, repos) {
+    if (!Array.isArray(repos) || repos.length === 0) return 0;
 
-        // Try cache first
-        const cached = localStorage.getItem(cacheKey);
-        if (cached) {
+    const cacheKey = `gh_total_commits_${username}`;
+
+    // Try cache first
+    const cached = localStorage.getItem(cacheKey);
+    if (cached) {
+        try {
             const { data, timestamp } = JSON.parse(cached);
             const ageInMinutes = (Date.now() - timestamp) / (1000 * 60);
             if (ageInMinutes < CACHE_TTL_MINUTES) {
                 return data;
             }
+        } catch (e) {
+            localStorage.removeItem(cacheKey);
         }
+    }
 
-        // GraphQL query to get total commits on default branch
-        const query = `
-            query {
-                user(login: "${username}") {
-                    repositories(first: 100, affiliations: OWNER) {
-                        nodes {
-                            defaultBranchRef {
-                                target {
-                                    ... on Commit {
-                                        history(first: 0) {
-                                            totalCount
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+    try {
+        // Fetch commit counts for top non-forked repositories in parallel
+        const ownRepos = repos.filter(repo => !repo.fork).slice(0, 15);
+
+        const commitPromises = ownRepos.map(async (repo) => {
+            try {
+                // Fetching per_page=1 and reading link headers gives total commits without token
+                const response = await fetch(
+                    `https://api.github.com/repos/${username}/${repo.name}/commits?per_page=1&author=${username}`,
+                    { headers: defaultHeaders }
+                );
+
+                if (!response.ok) return 0;
+
+                const linkHeader = response.headers.get("Link");
+                if (linkHeader) {
+                    const match = linkHeader.match(/page=(\d+)>; rel="last"/);
+                    if (match) return parseInt(match[1], 10);
                 }
-            }
-        `;
 
-        const response = await fetch("https://api.github.com/graphql", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `token ${GITHUB_TOKEN}`
-            },
-            body: JSON.stringify({ query })
+                const data = await response.json();
+                return Array.isArray(data) ? data.length : 0;
+            } catch {
+                return 0;
+            }
         });
 
-        if (!response.ok) {
-            throw new Error(`GraphQL error: ${response.status}`);
-        }
+        const commitCounts = await Promise.all(commitPromises);
+        const totalCommits = commitCounts.reduce((sum, count) => sum + count, 0);
 
-        const data = await response.json();
-
-        if (data.errors) {
-            console.error("GraphQL error:", data.errors);
-            return 0;
-        }
-
-        // Sum all commits from all repos
-        const totalCommits = data.data.user.repositories.nodes.reduce(
-            (sum, repo) => {
-                const count = repo.defaultBranchRef?.target?.history?.totalCount || 0;
-                return sum + count;
-            },
-            0
-        );
-
-        // Cache result
         localStorage.setItem(cacheKey, JSON.stringify({
             data: totalCommits,
             timestamp: Date.now()
         }));
 
         return totalCommits;
-
     } catch (error) {
         console.error("Error fetching total commits:", error);
         return 0;
@@ -518,9 +499,7 @@ async function loadGitHubDashboard() {
         setText("github-followers", user.followers);
         setText("github-following", user.following);
 
-        // Get and display total commits
-        const totalCommits = await getTotalCommitCount(githubUsername);
-        setText("github-commits", totalCommits);
+
 
         document.querySelectorAll(".github-profile-link").forEach(link => {
             link.href = user.html_url;
@@ -548,6 +527,12 @@ async function loadGitHubDashboard() {
          */
         loadLanguages(repos);
         loadProjects(repos);
+
+        // Pass repos into the commit count function
+        const totalCommits = await getTotalCommitCount(githubUsername, repos);
+        setText("github-commits", totalCommits);
+
+
 
     } catch (error) {
         console.error("GitHub API error:", error);
