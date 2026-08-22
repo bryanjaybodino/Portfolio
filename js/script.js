@@ -237,32 +237,17 @@ if (document.querySelector('.modal-content')) {
 
 
 
-//// Fetch and display visitor count
-//fetch('https://bryanjaybodino.goatcounter.com/counter/Portfolio.json')
-//    .then(response => response.json())
-//    .then(data => {
-//        const countElement = document.getElementById('visitor-count');
-//        if (countElement) {
-//            const totalCount = data.count || 0;
-//            countElement.textContent = totalCount.toLocaleString();
-//            countElement.classList.add('count-loaded');
-//        }
-//    })
-//    .catch(error => {
-//        console.log('Visitor counter unavailable');
-//    });
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    var visitorCounterTimer = setInterval(function () {
-        if (window.goatcounter && window.goatcounter.visit_count) {
-            clearInterval(visitorCounterTimer);
-            window.goatcounter.visit_count({
-                path: '/Portfolio',
-                append: '#visitor-count',
-                no_branding: true
-            });
+// Fetch and display visitor count
+fetch('https://bryanjaybodino.goatcounter.com/counter/Portfolio.json')
+    .then(response => response.json())
+    .then(data => {
+        const countElement = document.getElementById('visitor-count');
+        if (countElement) {
+            const totalCount = data.count || 0;
+            countElement.textContent = totalCount.toLocaleString();
+            countElement.classList.add('count-loaded');
         }
-    }, 100);
-});
+    })
+    .catch(error => {
+        console.log('Visitor counter unavailable');
+    });
