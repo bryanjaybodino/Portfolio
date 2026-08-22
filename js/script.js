@@ -258,7 +258,7 @@ var visitorCounterTimer = setInterval(function () {
     if (window.goatcounter && window.goatcounter.visit_count) {
         clearInterval(visitorCounterTimer);
         window.goatcounter.visit_count({
-            path: 'Portfolio',
+            path: '/Portfolio',
             append: '#visitor-count',
             no_branding: true
         });
