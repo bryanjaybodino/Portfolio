@@ -236,18 +236,26 @@ if (document.querySelector('.modal-content')) {
 
 
 
+//Need to use html instead of json kasi hindi realtime ang json response
+// Fetch and display visitor count from GoatCounter HTML endpoint
+fetch('https://bryanjaybodino.goatcounter.com/counter/portfolio.html')
+    .then(response => response.text())
+    .then(html => {
+        // Parse the HTML to extract the count
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
 
-// Fetch and display visitor count
-fetch('https://bryanjaybodino.goatcounter.com/counter/Portfolio.json')
-    .then(response => response.json())
-    .then(data => {
-        const countElement = document.getElementById('visitor-count');
-        if (countElement) {
-            const totalCount = data.count || 0;
-            countElement.textContent = totalCount.toLocaleString();
-            countElement.classList.add('count-loaded');
+        // Get the count from the gcvc-views span
+        const countSpan = temp.querySelector('#gcvc-views');
+        if (countSpan) {
+            const count = countSpan.textContent.trim();
+            const countElement = document.getElementById('visitor-count');
+            if (countElement) {
+                countElement.textContent = count;
+                countElement.classList.add('count-loaded');
+            }
         }
     })
     .catch(error => {
-        console.log('Visitor counter unavailable');
+        console.log('Visitor counter unavailable:', error);
     });
