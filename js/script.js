@@ -233,3 +233,21 @@ if (document.querySelector('.modal-content')) {
         e.stopPropagation();
     });
 }
+
+
+
+
+// Fetch and display visitor count
+fetch('https://bryanjaybodino.goatcounter.com/counter/TOTAL.json')
+    .then(response => response.json())
+    .then(data => {
+        const countElement = document.getElementById('visitor-count');
+        if (countElement) {
+            const totalCount = data.total || 0;
+            countElement.textContent = totalCount.toLocaleString();
+            countElement.classList.add('count-loaded');
+        }
+    })
+    .catch(error => {
+        console.log('Visitor counter unavailable');
+    });

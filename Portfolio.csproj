@@ -46,6 +46,7 @@
     <Content Include="assets\featured\1.jpg" />
     <Content Include="assets\featured\2.jpg" />
     <Content Include="assets\featured\3.jpg" />
+    <Content Include="assets\featured\4.jpg" />
     <Content Include="assets\nugets\BNet_ASP_MVC_Pagination.png" />
     <Content Include="assets\nugets\BNet_FTPServer.png" />
     <Content Include="assets\nugets\BNet_IMAP_Mailer.png" />
@@ -75,9 +76,6 @@
     <None Include="webfonts\fa-solid-900.woff2" />
     <None Include="webfonts\fa-v4compatibility.woff2" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="assets\bin\Debug\" />
-    <Folder Include="assets\bin\Release\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
