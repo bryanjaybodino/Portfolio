@@ -169,3 +169,77 @@ if (track && track.children.length > 0) {
     // Start loop
     animationId = requestAnimationFrame(animate);
 }
+
+// ===== IMAGE MODAL POPUP =====
+const imageModal = document.getElementById('imageModal');
+const modalImage = document.getElementById('modalImage');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalClose = document.getElementById('modalClose');
+
+// Get all clickable images (Certifications & Featured Projects)
+const clickableImages = document.querySelectorAll('.cert-image img, .project-image img');
+
+clickableImages.forEach(img => {
+    img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openImageModal(img);
+    });
+});
+
+function openImageModal(imgElement) {
+    // Get the image source
+    const imgSrc = imgElement.src;
+    const imgAlt = imgElement.alt || 'Image';
+
+    // Set modal image
+    modalImage.src = imgSrc;
+    modalImage.alt = imgAlt;
+
+    // Get the rotation class from the original image
+    const rotationClass = imgElement.className;
+
+    // Apply rotation to modal image if it has rotate class
+    // Do NOT use scale in modal - let object-fit handle sizing
+    if (rotationClass.includes('rotate-left')) {
+        modalImage.style.transform = 'rotate(-90deg)';
+        modalImage.style.transformOrigin = 'center';
+    } else if (rotationClass.includes('rotate-right')) {
+        modalImage.style.transform = 'rotate(90deg)';
+        modalImage.style.transformOrigin = 'center';
+    } else {
+        modalImage.style.transform = 'none';
+    }
+
+    // Show modal
+    imageModal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+}
+
+function closeImageModal() {
+    imageModal.classList.remove('active');
+    modalImage.src = '';
+    modalImage.style.transform = 'none';
+    document.body.style.overflow = 'auto'; // Restore background scroll
+}
+
+// Close modal on overlay click
+modalOverlay.addEventListener('click', closeImageModal);
+
+// Close modal on close button click
+if (modalClose) {
+    modalClose.addEventListener('click', closeImageModal);
+}
+
+// Close modal on ESC key press
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && imageModal.classList.contains('active')) {
+        closeImageModal();
+    }
+});
+
+// Prevent modal content click from closing modal
+if (document.querySelector('.modal-content')) {
+    document.querySelector('.modal-content').addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+}
