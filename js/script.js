@@ -6,7 +6,7 @@ if (themeToggle) {
     const icon = themeToggle.querySelector('i');
 
     // 1. Respect system preferences if no saved theme exists
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: light)').matches;
     const savedTheme = localStorage.getItem('theme') || (systemPrefersDark ? 'dark' : 'light');
 
     // Apply initial theme
