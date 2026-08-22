@@ -236,26 +236,56 @@ if (document.querySelector('.modal-content')) {
 
 
 
-//Need to use html instead of json kasi hindi realtime ang json response
-// Fetch and display visitor count from GoatCounter HTML endpoint
-fetch('https://bryanjaybodino.goatcounter.com/counter/portfolio.html')
-    .then(response => response.text())
-    .then(html => {
-        // Parse the HTML to extract the count
-        const temp = document.createElement('div');
-        temp.innerHTML = html;
 
-        // Get the count from the gcvc-views span
-        const countSpan = temp.querySelector('#gcvc-views');
-        if (countSpan) {
-            const count = countSpan.textContent.trim();
+// Fetch and display visitor count
+//fetch('https://bryanjaybodino.goatcounter.com/counter/Portfolio.json')
+//    .then(response => response.json())
+//    .then(data => {
+//        const countElement = document.getElementById('visitor-count');
+//        if (countElement) {
+//            const totalCount = data.count || 0;
+//            countElement.textContent = totalCount.toLocaleString();
+//            countElement.classList.add('count-loaded');
+//        }
+//    })
+//    .catch(error => {
+//        console.log('Visitor counter unavailable');
+//    });
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const iframe = document.getElementById('goatcounter-frame');
+
+    if (!iframe) {
+        console.error('Iframe element #goatcounter-frame not found.');
+        return;
+    }
+
+    // Must wait for the iframe content to finish loading before querying its DOM
+    iframe.addEventListener('load', () => {
+        try {
+            // Access the iframe's internal document
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+            // Attempt to query the target element inside the frame
+            const countSpan = iframeDoc.querySelector('#gcvc-views');
             const countElement = document.getElementById('visitor-count');
-            if (countElement) {
-                countElement.textContent = count;
+
+            if (countElement && countSpan) {
+                // Get the string value from textContent
+                const rawText = countSpan.textContent.trim();
+
+                // Parse to integer for number formatting, fallback to 0 if NaN
+                const totalCount = parseInt(rawText, 10) || 0;
+
+                countElement.textContent = totalCount.toLocaleString();
                 countElement.classList.add('count-loaded');
             }
+        } catch (error) {
+            // Browsers block reading cross-origin iframe documents here
+            console.error('Cross-Origin Access Blocked by Browser:', error);
         }
-    })
-    .catch(error => {
-        console.log('Visitor counter unavailable:', error);
     });
+});
