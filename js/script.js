@@ -198,17 +198,7 @@ function openImageModal(imgElement) {
     // Get the rotation class from the original image
     const rotationClass = imgElement.className;
 
-    // Apply rotation to modal image if it has rotate class
-    // Do NOT use scale in modal - let object-fit handle sizing
-    if (rotationClass.includes('rotate-left')) {
-        modalImage.style.transform = 'rotate(-90deg)';
-        modalImage.style.transformOrigin = 'center';
-    } else if (rotationClass.includes('rotate-right')) {
-        modalImage.style.transform = 'rotate(90deg)';
-        modalImage.style.transformOrigin = 'center';
-    } else {
-        modalImage.style.transform = 'none';
-    }
+    modalImage.style.transform = 'none';
 
     // Show modal
     imageModal.classList.add('active');
