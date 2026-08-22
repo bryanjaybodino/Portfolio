@@ -238,29 +238,16 @@ if (document.querySelector('.modal-content')) {
 
 
 // Fetch and display visitor count
-// Wait for GoatCounter to load, then display total visitor count
-var visitorCounterTimer = setInterval(function () {
-    if (window.goatcounter && window.goatcounter.visit_count) {
-        clearInterval(visitorCounterTimer);
-
-        // Use official GoatCounter visit_count method with TOTAL path
-        window.goatcounter.visit_count({
-            path: 'TOTAL',
-            append: '#visitor-count',
-            no_branding: true,
-            type: 'html',
-            style: `
-                        div {
-                            font-size: 1.5rem;
-                            font-weight: 800;
-                            color: white;
-                            text-align: center;
-                            border: none;
-                            background: none;
-                            padding: 0;
-                            margin: 0;
-                        }
-                    `
-        });
-    }
-}, 100);
+fetch('https://bryanjaybodino.goatcounter.com/counter/Portfolio.json')
+    .then(response => response.json())
+    .then(data => {
+        const countElement = document.getElementById('visitor-count');
+        if (countElement) {
+            const totalCount = data.count || 0;
+            countElement.textContent = totalCount.toLocaleString();
+            countElement.classList.add('count-loaded');
+        }
+    })
+    .catch(error => {
+        console.log('Visitor counter unavailable');
+    });
