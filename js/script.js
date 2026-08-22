@@ -254,13 +254,15 @@ if (document.querySelector('.modal-content')) {
 
 
 
-var visitorCounterTimer = setInterval(function () {
-    if (window.goatcounter && window.goatcounter.visit_count) {
-        clearInterval(visitorCounterTimer);
-        window.goatcounter.visit_count({
-            path: '/Portfolio',
-            append: '#visitor-count',
-            no_branding: true
-        });
-    }
-}, 100);
+document.addEventListener('DOMContentLoaded', function () {
+    var visitorCounterTimer = setInterval(function () {
+        if (window.goatcounter && window.goatcounter.visit_count) {
+            clearInterval(visitorCounterTimer);
+            window.goatcounter.visit_count({
+                path: '/Portfolio',
+                append: '#visitor-count',
+                no_branding: true
+            });
+        }
+    }, 100);
+});
