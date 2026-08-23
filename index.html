@@ -816,15 +816,15 @@
     </div>
 
     <!-- Floating Messenger Button -->
-    <a href="https://m.me/bodino.a.bryanjay"
-       target="_blank"
-       rel="noopener noreferrer"
+    <a href="javascript:void(0);"
+       onclick="handleMessengerClick(this)"
        class="messenger-button"
        title="Message on Facebook Messenger">
-        <i class="fab fa-facebook-messenger"></i>
-        <span>Chat Now</span>
+        <i class="fab fa-facebook-messenger icon-default"></i>
+        <i class="fas fa-spinner icon-loading"></i>
+        <span class="text-default">Chat Now</span>
+        <span class="text-loading">Opening...</span>
     </a>
-
     <script src="js/script.js"></script>
     <script src="js/github.js"></script>
 </body>

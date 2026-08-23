@@ -1282,6 +1282,7 @@ footer {
     z-index: 50;
     line-height: 1;
     color: white;
+    cursor:pointer;
 }
 
     .messenger-button i {
@@ -1311,4 +1312,48 @@ footer {
 
     [data-theme="dark"] .messenger-button:hover {
         box-shadow: 0 8px 20px rgba(59, 130, 246, 0.7);
+    }
+
+
+.messenger-button .icon-default,
+.messenger-button .text-default {
+    display: inline;
+}
+
+.messenger-button .icon-loading {
+    display: none;
+    animation: spin 1s linear infinite;
+}
+
+.messenger-button.loading .icon-default,
+.messenger-button.loading .text-default {
+    display: none;
+}
+
+.messenger-button.loading .icon-loading {
+    display: inline;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+.messenger-button .text-loading {
+    display: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.messenger-button.loading .text-loading {
+    display: inline;
+}
+
+    .messenger-button.loading .text-loading:hover::after {
+        content: ' (click to close)';
+        font-size: 0.7rem;
     }

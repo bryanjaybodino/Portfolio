@@ -281,32 +281,27 @@ if (document.readyState === 'loading') {
 } else {
     updateVisitorCount();
 }
+function handleMessengerClick(el) {
+    // Better mobile detection
+    const isMobile = window.matchMedia("(max-width: 1024px)").matches ||
+        ('ontouchstart' in window) ||
+        navigator.maxTouchPoints > 0;
 
-document.getElementById('messengerBtn').addEventListener('click', function (e) {
-    e.preventDefault();
+    // Prevent multiple clicks
+    if (el.classList.contains('loading')) return;
 
-    const username = 'bodino.a.bryanjay';
-    const userAgent = navigator.userAgent.toLowerCase();
-
-    // For iOS
-    if (/iphone|ipad|ipod/.test(userAgent)) {
-        window.location.href = `fb-messenger://user/${username}`;
-        setTimeout(() => {
-            window.location.href = `https://www.facebook.com/messages/t/${username}`;
-        }, 1500);
+    // Show loading only on mobile
+    if (isMobile) {
+        el.classList.add('loading');
     }
-    // For Android
-    else if (/android/.test(userAgent)) {
-        // Try direct messenger app link first
-        window.location.href = `https://m.me/${username}`;
 
-        // If app not installed, fallback to web after 2 seconds
-        setTimeout(() => {
-            window.location.href = `https://www.facebook.com/messages/t/${username}`;
-        }, 2000);
+    // Open messenger
+    window.open('https://m.me/bodino.a.bryanjay', '_blank');
+
+    // Remove loading after 15 seconds (mobile only)
+    if (isMobile) {
+        setTimeout(function () {
+            el.classList.remove('loading');
+        }, 15000);
     }
-    // Desktop/fallback
-    else {
-        window.location.href = `https://www.facebook.com/messages/t/${username}`;
-    }
-});
+}
