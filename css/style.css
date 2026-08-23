@@ -1357,3 +1357,21 @@ footer {
         content: ' (click to close)';
         font-size: 0.7rem;
     }
+
+
+
+/* Dark Mode - Headings for better readability */
+[data-theme="dark"] .navbar-brand,
+[data-theme="dark"] .cert-name,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: #E3E3E3 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: unset !important;
+    background-clip: unset !important;
+}

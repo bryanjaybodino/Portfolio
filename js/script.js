@@ -19,6 +19,9 @@ if (themeToggle) {
 
         applyTheme(newTheme);
         localStorage.setItem('theme', newTheme);
+
+        navbarNav.classList.remove('active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
     });
 
     // Sync with system preferences dynamically
