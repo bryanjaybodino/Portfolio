@@ -238,24 +238,44 @@ if (document.querySelector('.modal-content')) {
 
 
 // Fetch and display visitor count
-const COUNTER_API_URL = 'https://api.counterapi.dev/v2/bryanjaybodino-5219/portfolio-5219';rent count
+const COUNTER_API_URL = 'https://api.counterapi.dev/v2/bryanjaybodino-5219/portfolio-5219';
+
 function updateVisitorCount() {
-    fetch(COUNTER_API_URL + '/up')
-        .then(response => response.json())
+    // Check if this browser tab has already incremented the counter
+    const hasCounted = sessionStorage.getItem('has_counted_visit');
+
+    // Only call /up on initial load; use read-only endpoint on refreshes to avoid rate limiting
+    const endpoint = hasCounted ? COUNTER_API_URL : COUNTER_API_URL + '/up';
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+    fetch(endpoint, {
+        method: 'GET',
+        signal: controller.signal
+    })
+        .then(response => {
+            clearTimeout(timeoutId);
+            if (!response.ok) throw new Error('Counter API unreachable');
+            return response.json();
+        })
         .then(res => {
+            // Mark session as counted after a successful increment call
+            if (!hasCounted) {
+                sessionStorage.setItem('has_counted_visit', 'true');
+            }
+
             const countElement = document.getElementById('visitor-count');
-            // Access 'up_count' nested inside 'data'
             if (countElement && res.data && res.data.up_count !== undefined) {
                 countElement.textContent = res.data.up_count.toLocaleString();
                 countElement.classList.add('count-loaded');
             }
         })
         .catch(error => {
-            console.log('Visitor counter unavailable:', error);
+            console.warn('Visitor counter notice:', error.message);
         });
 }
 
-// Update on page load
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', updateVisitorCount);
 } else {
