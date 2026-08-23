@@ -281,3 +281,32 @@ if (document.readyState === 'loading') {
 } else {
     updateVisitorCount();
 }
+
+document.getElementById('messengerBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const username = 'bodino.a.bryanjay';
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    // For iOS
+    if (/iphone|ipad|ipod/.test(userAgent)) {
+        window.location.href = `fb-messenger://user/${username}`;
+        setTimeout(() => {
+            window.location.href = `https://www.facebook.com/messages/t/${username}`;
+        }, 1500);
+    }
+    // For Android
+    else if (/android/.test(userAgent)) {
+        // Try direct messenger app link first
+        window.location.href = `https://m.me/${username}`;
+
+        // If app not installed, fallback to web after 2 seconds
+        setTimeout(() => {
+            window.location.href = `https://www.facebook.com/messages/t/${username}`;
+        }, 2000);
+    }
+    // Desktop/fallback
+    else {
+        window.location.href = `https://www.facebook.com/messages/t/${username}`;
+    }
+});

@@ -687,7 +687,7 @@ section#projects {
     }
 
     .skill-category h4 {
-        color: var(--text-light);
+        color: var(--primary);
         margin-bottom: 1rem;
         font-size: 1.1rem;
         display: flex;
@@ -1265,15 +1265,17 @@ footer {
 /* Floating Messenger Button */
 .messenger-button {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 60px;
-    height: 60px;
+    bottom: 25px;
+    right: 25px;
+    width: auto;
+    height: 50px;
+    padding: 0 15px;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border-radius: 50%;
+    border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.6rem;
     text-decoration: none;
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
     transition: all 0.3s ease;
@@ -1283,11 +1285,17 @@ footer {
 }
 
     .messenger-button i {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
+    }
+
+    .messenger-button span {
+        font-size: 0.95rem;
+        font-weight: 600;
+        white-space: nowrap;
     }
 
     .messenger-button:hover {
-        transform: scale(1.1) translateY(-3px);
+        transform: translateY(-3px);
         box-shadow: 0 8px 20px rgba(37, 99, 235, 0.6);
     }
 
@@ -1304,24 +1312,3 @@ footer {
     [data-theme="dark"] .messenger-button:hover {
         box-shadow: 0 8px 20px rgba(59, 130, 246, 0.7);
     }
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .messenger-button {
-        bottom: 1.5rem;
-        right: 1.5rem;
-        width: 55px;
-        height: 55px;
-        font-size: 1.6rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .messenger-button {
-        bottom: 1rem;
-        right: 1rem;
-        width: 50px;
-        height: 50px;
-        font-size: 1.4rem;
-    }
-}
